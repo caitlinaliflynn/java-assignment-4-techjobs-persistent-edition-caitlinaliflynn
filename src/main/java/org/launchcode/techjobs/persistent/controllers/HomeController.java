@@ -48,7 +48,7 @@ public class HomeController {
             model.addAttribute("title", "Add Job");
             return "add";
         } else {
-            model.addAttribute("skills", skillRepository);
+            skillRepository.findById(employerId);
         }
 
         return "redirect:";
