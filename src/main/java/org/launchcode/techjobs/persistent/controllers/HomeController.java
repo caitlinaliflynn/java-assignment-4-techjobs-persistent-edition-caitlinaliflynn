@@ -22,7 +22,7 @@ public class HomeController {
     private EmployerRepository employerRepository;
 
     @Autowired
-    SkillRepository skillRepository;
+    private SkillRepository skillRepository;
 
     @RequestMapping("")
     public String index(Model model) {
