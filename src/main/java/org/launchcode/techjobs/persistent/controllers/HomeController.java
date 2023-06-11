@@ -48,6 +48,14 @@ public class HomeController {
             model.addAttribute("title", "Add Job");
             model.addAttribute(new Job());
             return "add";
+        } else {
+            Optional<Employer> result = employerRepository.findById(employerId);
+            if (result.isEmpty()) {
+                model.addAttribute("title", "Invalid Employee ID: " + employerId);
+            } else {
+                Employer employer = result.get();
+                model.addAttribute("title", "Employers: " + employer.getName());
+            }
         }
 
         employerRepository.save(newJob);
