@@ -45,20 +45,11 @@ public class HomeController {
                                        Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Job");
-            model.addAttribute(new Job());
             return "add";
         } else {
-            Optional<Employer> result = employerRepository.findById(employerId);
-            if (result.isEmpty()) {
-                model.addAttribute("title", "Invalid Employee ID: " + employerId);
-            } else {
-                Employer employer = result.get();
-                model.addAttribute("title", "Employers: " + employer.getName());
-            }
+            employerRepository.save(newJob);
         }
 
-        employerRepository.save(newJob);
         return "redirect:";
     }
 
