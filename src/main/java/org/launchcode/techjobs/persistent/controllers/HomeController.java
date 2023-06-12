@@ -4,6 +4,7 @@ import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
+import org.launchcode.techjobs.persistent.models.data.JobRepository;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,14 @@ import java.util.Optional;
  * Created by LaunchCode
  */
 @Controller
+@RequestMapping("")
 public class HomeController {
 
     @Autowired
     private EmployerRepository employerRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
 
     @RequestMapping("")
     public String index(Model model) {
@@ -47,7 +52,7 @@ public class HomeController {
         if (errors.hasErrors()) {
             return "add";
         } else {
-            employerRepository.save(newJob);
+            jobRepository.save(newJob);
         }
 
         return "redirect:";
@@ -55,7 +60,7 @@ public class HomeController {
 
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
-
+        jobRepository.findById(jobId);
         return "view";
     }
 
