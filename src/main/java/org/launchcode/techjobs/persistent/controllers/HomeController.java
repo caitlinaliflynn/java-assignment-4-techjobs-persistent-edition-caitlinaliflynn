@@ -43,7 +43,6 @@ public class HomeController {
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
         model.addAttribute("title", "Add Job");
-        model.addAttribute("jobs", employerRepository.findAll());
         model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skills", skillRepository.findAll());
         model.addAttribute(new Job());
@@ -56,10 +55,15 @@ public class HomeController {
 
         if (errors.hasErrors()) {
             return "add";
-        } else {
-            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
-            newJob.setSkills(skillObjs);
         }
+        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+        newJob.setSkills(skillObjs);
+        Optional optEmployer = employerRepository.findById(employerId);
+        if (optEmployer.isPresent()) {
+            Employer employer = (Employer) optEmployer.get();
+            newJob.setEmployer(employer);
+        }
+        jobRepository.save(newJob);
 
         return "redirect:";
     }
