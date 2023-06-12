@@ -16,7 +16,7 @@ public class Job extends AbstractEntity {
     @ManyToOne
     private Employer employer;
 
-    @ManyToMany(mappedBy = "jobs")
+    @ManyToMany
     private List<Skill> skills = new ArrayList<>();
 
     public Job(Employer anEmployer, List<Skill> someSkills) {
@@ -55,4 +55,8 @@ public class Job extends AbstractEntity {
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
+
+//    public void addSkills(Skill skill) {
+//        this.skills.add(skill);
+//    }
 }
